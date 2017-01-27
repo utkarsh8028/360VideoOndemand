@@ -41,8 +41,7 @@ public class SphericalPlayerActivity extends AppCompatActivity {
 
 
         Bundle extras = getIntent().getExtras();
-        String str = extras.getString("userInput");
-        path=str;
+        path = extras.getString("userInput");
         videoPlayer.setVideoURIPath(path);
         videoPlayer.playWhenReady();
 

@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="http://35.154.133.57:1935/vods3/_definst_/mp4:amazons3/vimersia/vim/shark.mp4/playlist.m3u8"
+        android:text="http://104.198.83.123:1935/vim/_definst_/mp4:https/vimersia/vim/video.mp4/playlist.m3u8"
         android:ems="10"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"

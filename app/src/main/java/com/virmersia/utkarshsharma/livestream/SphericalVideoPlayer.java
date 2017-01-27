@@ -26,7 +26,6 @@ import android.view.TextureView;
 import android.view.View;
 
 import static com.virmersia.utkarshsharma.livestream.SphericalPlayerActivity.toast;
-import static com.virmersia.utkarshsharma.livestream.SphericalPlayerActivity.toast;
 
 import com.virmersia.utkarshsharma.livestream.gles.EGLRenderTarget;
 import com.virmersia.utkarshsharma.livestream.gles.GLHelpers;

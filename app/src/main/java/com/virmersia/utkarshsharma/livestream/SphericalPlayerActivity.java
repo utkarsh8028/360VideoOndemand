@@ -29,7 +29,8 @@ public class SphericalPlayerActivity extends AppCompatActivity {
     private static final int PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 0x1;
 
     private SphericalVideoPlayer videoPlayer;
-    private MainActivity Ma;
+//    private MainActivity Ma= new MainActivity();
+    String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +38,22 @@ public class SphericalPlayerActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_spherical_player);
         videoPlayer = (SphericalVideoPlayer) findViewById(R.id.spherical_video_player);
-        String s = Ma.Urlparse();
-        videoPlayer.setVideoURIPath(s);
+
+
+        Bundle extras = getIntent().getExtras();
+        String str = extras.getString("userInput");
+        path=str;
+        videoPlayer.setVideoURIPath(path);
         videoPlayer.playWhenReady();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         requestExternalStoragePermission();
     }
-
+void getPath(String s)
+{
+    s=path;
+}
     @Override
     protected void onPause() {
         super.onPause();

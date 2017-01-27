@@ -13,7 +13,9 @@ public class MainActivity extends AppCompatActivity {
     Button   mButton;
     EditText mEdit;
     String Urlpath;
-    private SphericalVideoPlayer vp;
+    private SphericalPlayerActivity spa= new SphericalPlayerActivity();
+    private SphericalVideoPlayer videoPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,12 @@ public class MainActivity extends AppCompatActivity {
         mEdit   = (EditText)findViewById(R.id.editText);
         Urlpath=mEdit.getText().toString();
         System.out.print(Urlpath);
-        Intent hello = new Intent(this,SphericalPlayerActivity.class);
+        spa.getPath(Urlpath);
+
+        Intent hello = new Intent(this,SphericalPlayerActivity.class).putExtra("userInput", Urlpath);
+
         startActivity(hello);
+
     }
+
 }

@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">livestream</string>
-    <string name="title_activity_spherical_player">SphericalPlayerActivity</string>
+    <string name="title_activity_spherical_player">VideoPlayer</string>
 </resources>

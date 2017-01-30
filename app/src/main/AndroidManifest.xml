@@ -26,9 +26,9 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
+            <!--<meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.virmersia.utkarshsharma.livestream.MainActivity" />
+                android:value="com.virmersia.utkarshsharma.livestream.MainActivity" />-->
         </activity>
     </application>
 

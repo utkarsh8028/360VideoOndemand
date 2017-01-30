@@ -5,15 +5,18 @@ package com.virmersia.utkarshsharma.livestream;
  */
 
 import android.content.Context;
+import android.content.*;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.session.MediaController;
 import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -24,6 +27,7 @@ import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
+import android.widget.VideoView;
 
 import static com.virmersia.utkarshsharma.livestream.SphericalPlayerActivity.toast;
 
@@ -39,6 +43,7 @@ import java.io.IOException;
 public class SphericalVideoPlayer extends TextureView {
     private static final String TAG = SphericalVideoPlayer.class.getSimpleName();
     private static final String RENDER_THREAD_NAME = "360RenderThread";
+
 
     private MediaPlayer videoPlayerInternal;
     private RenderThread renderThread;
@@ -117,6 +122,7 @@ public class SphericalVideoPlayer extends TextureView {
     public void playWhenReady() {
         // Wait for render surface creation to start preparing the video.
         readyToPlay = true;
+
     }
 
     private void prepareVideo(String videoPath) {
@@ -133,9 +139,25 @@ public class SphericalVideoPlayer extends TextureView {
             videoPlayerInternal.setSurface(renderThread.getVideoDecodeSurface());
             videoPlayerInternal.setAudioStreamType(AudioManager.STREAM_MUSIC);
             videoPlayerInternal.setDataSource(getContext(), Uri.parse(videoPath), null);
-            videoPlayerInternal.setLooping(true);
+            videoPlayerInternal.setLooping(false);
+          // VideoView mVideoView = (VideoView) findViewById(R.id.video_view);
+         //   mVideoView.setVideoPath(videoPath);
+
+
+            videoPlayerInternal.setOnCompletionListener(
+            new MediaPlayer.OnCompletionListener(){
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    //videoPlayerInternal.stop();
+
+                    /*SphericalPlayerActivity sp= new SphericalPlayerActivity();
+                    sp.HomeActivity();*/
+                }
+
+            });
 
             toast(getContext(), "Preparing video...");
+
 
             videoPlayerInternal.setOnPreparedListener(
                     new MediaPlayer.OnPreparedListener() {
@@ -149,7 +171,7 @@ public class SphericalVideoPlayer extends TextureView {
                     new MediaPlayer.OnBufferingUpdateListener() {
                         @Override
                         public void onBufferingUpdate(MediaPlayer mp, int percent) {
-                            toast(getContext(), "Buffered video" + percent + "%");
+                           // toast(getContext(), "Buffered video" + percent + "%");
                         }
                     });
             videoPlayerInternal.prepareAsync();
@@ -163,6 +185,7 @@ public class SphericalVideoPlayer extends TextureView {
         if (!videoPlayerInternal.isPlaying()) {
             videoPlayerInternal.start();
         }
+
     }
 
     public void releaseResources() {
@@ -257,6 +280,7 @@ public class SphericalVideoPlayer extends TextureView {
             };
         }
 
+
         private Surface getVideoDecodeSurface() {
             if (!eglRenderTarget.hasValidContext()) {
                 throw new IllegalStateException(
@@ -285,6 +309,7 @@ public class SphericalVideoPlayer extends TextureView {
 
             GLES20.glViewport(0, 0, width, height);
             GLHelpers.checkGlError("glViewport");
+
 
             float aspectRatio = (float) width / height;
             Matrix.perspectiveM(projectionMatrix, 0, FOVY, aspectRatio, Z_NEAR, Z_FAR);
